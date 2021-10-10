@@ -39,3 +39,35 @@ add_library(${PROJECT_NAME} STATIC
   backends/imgui_impl_glfw.cpp
   backends/imgui_impl_opengl3.cpp
 )
+
+if(VITASDK)
+    install(FILES
+      imconfig.h
+      imgui_internal.h
+      imgui.h 
+      imstb_rectpack.h
+      imstb_textedit.h 
+      imstb_truetype.h
+      backends/imgui_impl_glfw.h
+      backends/imgui_impl_opengl3.h
+      DESTINATION ${CMAKE_INSTALL_PREFIX}/include
+    )
+    install(TARGETS ${PROJECT_NAME}
+      DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+    )
+else()
+    install(FILES
+      imconfig.h
+      imgui_internal.h
+      imgui.h 
+      imstb_rectpack.h
+      imstb_textedit.h 
+      imstb_truetype.h
+      backends/imgui_impl_glfw.h
+      backends/imgui_impl_opengl3.h
+      DESTINATION ${CMAKE_INSTALL_PREFIX}/include/vdsuite/user
+    )
+    install(TARGETS ${PROJECT_NAME}
+      DESTINATION ${VDSUITE_LIBRARY_DIRECTORIES}
+    )
+endif()
