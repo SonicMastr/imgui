@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.11.0)
 option(VITASDK "Build Library for VitaSDK" OFF)
+option(DEMO "Build Library with Demo" OFF)
 
 if(VITASDK)
     set(CMAKE_TOOLCHAIN_FILE "$ENV{VITASDK}/share/vita.toolchain.cmake" CACHE PATH "VitaSDK toolchain file")
@@ -30,15 +31,26 @@ add_compile_definitions(
   __NEWLIB__
 )
 
+if(DEMO)
 add_library(${PROJECT_NAME} STATIC
   imgui.cpp
   imgui_draw.cpp
   imgui_widgets.cpp
   imgui_tables.cpp
-  imgui_demo.cpp    # Yes, I include the demo. Shush
+  imgui_demo.cpp
   backends/imgui_impl_glfw.cpp
   backends/imgui_impl_opengl3.cpp
 )
+else()
+add_library(${PROJECT_NAME} STATIC
+  imgui.cpp
+  imgui_draw.cpp
+  imgui_widgets.cpp
+  imgui_tables.cpp
+  backends/imgui_impl_glfw.cpp
+  backends/imgui_impl_opengl3.cpp
+)
+endif()
 
 if(VITASDK)
     install(FILES

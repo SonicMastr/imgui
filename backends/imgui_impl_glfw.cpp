@@ -397,8 +397,8 @@ static void ImGui_ImplGlfw_UpdateGamepads()
         return;
 
     // Update gamepad inputs
-    #define MAP_BUTTON(NAV_NO, BUTTON_NO)       { if (state.buttons[BUTTON_NO] == GLFW_PRESS) io.NavInputs[NAV_NO] = 1.0f; }
-    #define MAP_ANALOG(NAV_NO, AXIS_NO, V0, V1) { float v = state.axes[AXIS_NO]; v = (v - V0) / (V1 - V0); if (v > 1.0f) v = 1.0f; if (io.NavInputs[NAV_NO] < v) io.NavInputs[NAV_NO] = v; }
+    #define MAP_BUTTON(NAV_NO, BUTTON_NO)       { if (has_gamepad && state.buttons[BUTTON_NO] == GLFW_PRESS) io.NavInputs[NAV_NO] = 1.0f; }
+    #define MAP_ANALOG(NAV_NO, AXIS_NO, V0, V1) { float v = has_gamepad ? state.axes[AXIS_NO] : V0; v = (v - V0) / (V1 - V0); if (v > 1.0f) v = 1.0f; if (io.NavInputs[NAV_NO] < v) io.NavInputs[NAV_NO] = v; }
     GLFWgamepadstate state;
     int has_gamepad = glfwGetGamepadState(GLFW_JOYSTICK_1, &state);
     MAP_BUTTON(ImGuiNavInput_Activate,   0);     // Cross / A
