@@ -14,7 +14,7 @@ project(imgui LANGUAGES CXX)
 
 if (NOT VITASDK)
   include(VitaDevelopmentSuite)
-  set(CMAKE_C_STANDARD 99)
+  set(CMAKE_CXX_STANDARD 11)
   add_compile_options(
     -Xdiag=0 -Xquit=2
   )
